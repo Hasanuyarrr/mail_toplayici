@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mail Toplayıcı</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        width: 340px;
+        margin: 0;
+        padding: 14px;
+        font-family: system-ui, sans-serif;
+        font-size: 13px;
+        color: #1a1a1a;
+        background: #f6f6f7;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      h2 {
+        margin: 0 0 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #374151;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      label {
+        cursor: pointer;
+        user-select: none;
+      }
+      button {
+        width: 100%;
+        padding: 8px 10px;
+        border: none;
+        border-radius: 6px;
+        font-size: 13px;
+        cursor: pointer;
+        background: #2563eb;
+        color: #fff;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      button.secondary {
+        background: #e5e7eb;
+        color: #111;
+        margin-top: 8px;
+      }
+      button.danger {
+        background: #dc2626;
+      }
+      button.small {
+        width: auto;
+        padding: 4px 8px;
+        font-size: 11px;
+        margin-top: 0;
+      }
+      .stats {
+        padding: 10px;
+        background: #fff;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+      .filter-block {
+        margin-bottom: 10px;
+        padding: 10px;
+        background: #fff;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+      }
+      .filter-actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .scroll-checks {
+        max-height: 100px;
+        overflow-y: auto;
+        border: 1px solid #e5e7eb;
+        border-radius: 4px;
+        padding: 6px 8px;
+        background: #fafafa;
+      }
+      .scroll-checks label {
+        display: block;
+        margin: 4px 0;
+        font-size: 12px;
+        word-break: break-all;
+      }
+      .hint {
+        margin-top: 10px;
+        font-size: 11px;
+        color: #6b7280;
+        line-height: 1.4;
+      }
+      .export-meta {
+        font-size: 11px;
+        color: #4b5563;
+        margin-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Mail Toplayıcı</h1>
+    <div class="row">
+      <label for="toggle">Toplamayı aç</label>
+      <input type="checkbox" id="toggle" />
+    </div>
+    <div class="stats" id="stats">Kayıtlı adres: 0</div>
+
+    <div class="filter-block">
+      <h2>İndirmede dahil et — son uzantı (TLD)</h2>
+      <div class="filter-actions">
+        <button type="button" class="secondary small" id="tld-all">Tümünü seç</button>
+        <button type="button" class="secondary small" id="tld-none">Tümünü kaldır</button>
+      </div>
+      <div class="scroll-checks" id="tld-list"></div>
+    </div>
+
+    <div class="filter-block">
+      <h2>İndirmede dahil et — alan adı (@ sonrası)</h2>
+      <div class="filter-actions">
+        <button type="button" class="secondary small" id="dom-all">Tümünü seç</button>
+        <button type="button" class="secondary small" id="dom-none">Tümünü kaldır</button>
+      </div>
+      <div class="scroll-checks" id="domain-list"></div>
+    </div>
+
+    <p class="export-meta" id="export-meta"></p>
+    <button type="button" id="export">TXT olarak indir (filtreye uygunlar)</button>
+    <button type="button" id="purge-excluded" class="secondary">Dışlananları listeden sil</button>
+    <button type="button" id="clear" class="secondary danger">Listeyi temizle</button>
+    <p class="hint">
+      Toplama açıkken sayfalar taranır. İşaret kaldırılan TLD / alan adı grupları bu indirmede yer almaz. Durdurmak için &quot;Toplamayı aç&quot;ı kapatın.
+    </p>
+    <script src="popup.js"></script>
+  </body>
+</html>
